@@ -3,11 +3,11 @@
 import { motion } from "framer-motion";
 import { ArrowRight, CalendarCheck, CheckCircle2, Sparkles } from "lucide-react";
 import {
+  fadeInUp,
   buttonHover,
-  cardHover,
-  staggerContainer,
-  staggerItem
-} from "@/components/motion-presets";
+  scaleOnHover,
+  staggerContainer
+} from "@/lib/animations";
 
 const clientSignals = [
   "Series D SaaS",
@@ -120,7 +120,13 @@ function AnimatedBackdrop() {
 
 export default function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-page">
+    <motion.section
+      className="relative isolate overflow-hidden border-t border-white/5 bg-page"
+      variants={fadeInUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+    >
       <AnimatedBackdrop />
 
       <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col px-6 pb-16 pt-6 sm:px-8 lg:px-10">
@@ -149,9 +155,11 @@ export default function Hero() {
 
           <motion.a
             href="#consultation"
-            whileHover={buttonHover}
-            whileTap={{ scale: 0.98 }}
-            className="hidden rounded-full border border-accent px-5 py-2.5 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(0,0,0,0.24)] transition-all duration-300 hover:bg-accent hover:shadow-[0_16px_38px_rgba(15,118,110,0.3)] md:inline-flex"
+            variants={buttonHover}
+            initial="rest"
+            whileHover="hover"
+            whileTap="tap"
+            className="hidden rounded-lg border border-accent px-6 py-3 text-sm font-medium text-white shadow-[0_12px_30px_rgba(0,0,0,0.24)] transition-all duration-300 hover:bg-[#149287] hover:shadow-lg md:inline-flex"
           >
             Book Consultation
           </motion.a>
@@ -160,27 +168,25 @@ export default function Hero() {
         <div className="grid flex-1 items-center gap-14 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
           <motion.div
             variants={staggerContainer}
-            initial="hidden"
-            animate="show"
             className="relative"
           >
             <motion.div
-              variants={staggerItem}
-              className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-surface/90 px-4 py-2 text-sm font-medium text-zinc-300 shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur"
+              variants={fadeInUp}
+              className="group mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-surface/90 px-4 py-2 text-sm font-medium text-zinc-300 shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur transition-all duration-300 hover:border-accent"
             >
-              <CheckCircle2 className="h-4 w-4 text-accent" />
+              <CheckCircle2 className="h-4 w-4 text-accent transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:rotate-3 group-hover:scale-110" />
               AI-ranked shortlists, validated by senior hiring experts
             </motion.div>
 
             <motion.h1
-              variants={staggerItem}
+              variants={fadeInUp}
               className="max-w-4xl text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl"
             >
               Build High-Performance Tech Teams Faster
             </motion.h1>
 
             <motion.p
-              variants={staggerItem}
+              variants={fadeInUp}
               className="mt-7 max-w-2xl text-lg leading-8 text-zinc-300 sm:text-xl"
             >
               Enterprise staffing for engineering, product, data, cloud, and
@@ -189,14 +195,16 @@ export default function Hero() {
             </motion.p>
 
             <motion.div
-              variants={staggerItem}
+              variants={fadeInUp}
               className="mt-10 flex flex-col gap-4 sm:flex-row"
             >
               <motion.a
                 href="#consultation"
-                whileHover={buttonHover}
-                whileTap={{ scale: 0.98 }}
-                className="premium-button-primary sm:px-9"
+                variants={buttonHover}
+                initial="rest"
+                whileHover="hover"
+                whileTap="tap"
+                className="premium-button-primary px-7 py-4 sm:px-9"
               >
                 Get Started
                 <ArrowRight className="h-5 w-5" />
@@ -204,9 +212,11 @@ export default function Hero() {
 
               <motion.a
                 href="#consultation"
-                whileHover={buttonHover}
-                whileTap={{ scale: 0.98 }}
-                className="premium-button-secondary sm:px-9"
+                variants={buttonHover}
+                initial="rest"
+                whileHover="hover"
+                whileTap="tap"
+                className="premium-button-secondary px-7 py-4 sm:px-9"
               >
                 <CalendarCheck className="h-5 w-5 text-accent" />
                 Book Consultation
@@ -214,13 +224,13 @@ export default function Hero() {
             </motion.div>
 
             <motion.div
-              variants={staggerItem}
+              variants={fadeInUp}
               className="mt-12 grid gap-5 sm:grid-cols-3"
             >
               {metrics.map((metric) => (
                 <div
                   key={metric.label}
-                  className="rounded-2xl border border-white/10 bg-surface/70 p-4 shadow-[0_16px_46px_rgba(0,0,0,0.22)]"
+                  className="rounded-xl border border-white/10 bg-[#111]/70 p-4 shadow-[0_16px_46px_rgba(0,0,0,0.22)] transition-all duration-300 hover:border-accent hover:shadow-2xl"
                 >
                   <div className="text-2xl font-bold tracking-tight text-white">
                     {metric.value}
@@ -234,15 +244,14 @@ export default function Hero() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.18, ease: "easeOut" }}
+            variants={fadeInUp}
             className="relative"
           >
-            <div className="absolute -inset-5 rounded-[2.5rem] border border-white/5 bg-surface/30" />
+            <div className="absolute -inset-5 rounded-xl border border-white/5 bg-surface/30" />
             <motion.div
-              whileHover={cardHover}
-              className="premium-panel relative overflow-hidden rounded-[2rem]"
+              variants={{ ...fadeInUp, ...scaleOnHover }}
+              whileHover="hover"
+              className="premium-panel relative overflow-hidden"
             >
               <div className="flex items-center justify-between border-b border-white/10 px-5 py-5 sm:px-6">
                 <div>
@@ -265,7 +274,7 @@ export default function Hero() {
                     key={row.role}
                     whileHover={{ x: 4 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="rounded-2xl border border-white/8 bg-page/80 p-4 transition-all duration-300 hover:border-accent/70 hover:bg-surface-2 hover:shadow-[0_18px_50px_rgba(0,0,0,0.35)]"
+                    className="rounded-xl border border-white/8 bg-page/80 p-4 transition-all duration-300 hover:border-accent hover:bg-surface-2 hover:shadow-2xl"
                   >
                     <div className="flex items-start justify-between gap-5">
                       <div>
@@ -302,9 +311,7 @@ export default function Hero() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.44, ease: "easeOut" }}
+          variants={staggerContainer}
           className="border-t border-white/10 pt-7"
         >
           <p className="mb-5 text-sm font-medium uppercase tracking-[0.2em] text-zinc-500">
@@ -313,16 +320,18 @@ export default function Hero() {
 
           <div className="grid grid-cols-2 gap-4 text-base font-semibold text-zinc-400 sm:grid-cols-3 lg:grid-cols-5">
             {clientSignals.map((logo) => (
-              <div
+              <motion.div
                 key={logo}
-                className="flex h-14 transform-gpu items-center justify-center rounded-2xl border border-white/10 bg-surface/75 px-4 text-center shadow-[0_14px_40px_rgba(0,0,0,0.22)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.04] hover:border-accent/80 hover:text-white hover:shadow-[0_22px_55px_rgba(0,0,0,0.4)]"
+                variants={{ ...fadeInUp, ...scaleOnHover }}
+                whileHover="hover"
+                className="flex h-14 transform-gpu items-center justify-center rounded-xl border border-white/10 bg-[#111]/75 px-4 text-center shadow-[0_14px_40px_rgba(0,0,0,0.22)] transition-all duration-300 hover:text-white"
               >
                 {logo}
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -3,11 +3,10 @@
 import { motion } from "framer-motion";
 import { ClipboardList, Cpu, Send, UserCheck } from "lucide-react";
 import {
-  cardHover,
-  sectionReveal,
+  fadeInUp,
+  scaleOnHover,
   staggerContainer,
-  staggerItem
-} from "@/components/motion-presets";
+} from "@/lib/animations";
 
 const steps = [
   {
@@ -40,15 +39,15 @@ export default function Process() {
   return (
     <motion.section
       id="process"
-      className="section-shell"
-      variants={sectionReveal}
+      className="section-shell bg-[#0E0E0E]"
+      variants={fadeInUp}
       initial="hidden"
-      whileInView="show"
+      whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
     >
-      <div className="mx-auto max-w-7xl">
+      <motion.div variants={staggerContainer} className="mx-auto max-w-7xl">
         <motion.div
-          variants={staggerItem}
+          variants={fadeInUp}
           className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]"
         >
           <div>
@@ -78,15 +77,15 @@ export default function Process() {
             return (
               <motion.article
                 key={step.title}
-                variants={staggerItem}
-                whileHover={cardHover}
+                variants={{ ...fadeInUp, ...scaleOnHover }}
+                whileHover="hover"
                 className="premium-card group relative min-h-72"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-page transition-all duration-300 group-hover:border-accent/80">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-page transition-all duration-300 group-hover:border-accent">
                     <Icon className="h-6 w-6 text-accent" />
                   </div>
-                  <span className="rounded-full border border-white/10 bg-page px-3 py-1 text-sm font-semibold text-zinc-500">
+                  <span className="rounded-lg border border-white/10 bg-page px-3 py-1 text-sm font-semibold text-zinc-500">
                     0{index + 1}
                   </span>
                 </div>
@@ -100,7 +99,7 @@ export default function Process() {
             );
           })}
         </motion.div>
-      </div>
+      </motion.div>
     </motion.section>
   );
 }

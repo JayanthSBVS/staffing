@@ -3,10 +3,10 @@
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useRef } from "react";
 import {
-  cardHover,
-  sectionReveal,
-  staggerItem
-} from "@/components/motion-presets";
+  fadeInUp,
+  scaleOnHover,
+  staggerContainer
+} from "@/lib/animations";
 
 type CounterProps = {
   value: number;
@@ -76,15 +76,15 @@ const logoRow = [
 export default function TrustStrip() {
   return (
     <motion.section
-      className="section-shell"
-      variants={sectionReveal}
+      className="section-shell bg-[#0E0E0E]"
+      variants={fadeInUp}
       initial="hidden"
-      whileInView="show"
+      whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
     >
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 rounded-[2rem] border border-white/10 bg-surface/55 p-6 shadow-[0_24px_90px_rgba(0,0,0,0.26)] sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
-          <motion.div variants={staggerItem}>
+      <motion.div variants={staggerContainer} className="mx-auto max-w-7xl">
+        <div className="grid gap-10 rounded-xl border border-white/10 bg-[#111]/55 p-6 shadow-[0_24px_90px_rgba(0,0,0,0.26)] sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
+          <motion.div variants={fadeInUp}>
             <div className="mb-5 h-1 w-12 bg-accent" />
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-zinc-500">
               Proven delivery
@@ -98,8 +98,8 @@ export default function TrustStrip() {
             {proofMetrics.map((metric) => (
               <motion.div
                 key={metric.label}
-                variants={staggerItem}
-                whileHover={cardHover}
+                variants={{ ...fadeInUp, ...scaleOnHover }}
+                whileHover="hover"
                 className="premium-card"
               >
                 <div className="text-4xl font-bold tracking-tight text-white">
@@ -113,7 +113,7 @@ export default function TrustStrip() {
           </div>
         </div>
 
-        <motion.div variants={staggerItem} className="mt-12">
+        <motion.div variants={fadeInUp} className="mt-12">
           <p className="mb-6 text-center text-sm font-medium uppercase tracking-[0.22em] text-zinc-500">
             Hiring environments we support every quarter
           </p>
@@ -122,15 +122,16 @@ export default function TrustStrip() {
             {logoRow.map((logo) => (
               <motion.div
                 key={logo}
-                whileHover={cardHover}
-                className="flex h-16 transform-gpu items-center justify-center rounded-2xl border border-white/10 bg-surface px-5 text-center text-base font-semibold text-zinc-400 shadow-[0_14px_42px_rgba(0,0,0,0.22)] transition-all duration-300 hover:border-accent/80 hover:text-white hover:shadow-[0_22px_58px_rgba(0,0,0,0.42)]"
+                variants={{ ...fadeInUp, ...scaleOnHover }}
+                whileHover="hover"
+                className="flex h-16 transform-gpu items-center justify-center rounded-xl border border-white/10 bg-[#111] px-5 text-center text-base font-semibold text-zinc-400 shadow-[0_14px_42px_rgba(0,0,0,0.22)] transition-all duration-300 hover:text-white"
               >
                 {logo}
               </motion.div>
             ))}
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </motion.section>
   );
 }

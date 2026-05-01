@@ -3,11 +3,10 @@
 import { motion } from "framer-motion";
 import { BrainCircuit, CheckCircle2, Clock3, ShieldCheck, X } from "lucide-react";
 import {
-  cardHover,
-  sectionReveal,
+  fadeInUp,
+  scaleOnHover,
   staggerContainer,
-  staggerItem
-} from "@/components/motion-presets";
+} from "@/lib/animations";
 
 const advantages = [
   {
@@ -38,14 +37,14 @@ const advantages = [
 export default function Differentiation() {
   return (
     <motion.section
-      className="section-shell"
-      variants={sectionReveal}
+      className="section-shell bg-[#0B0B0B]"
+      variants={fadeInUp}
       initial="hidden"
-      whileInView="show"
+      whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
     >
-      <div className="mx-auto max-w-7xl">
-        <motion.div variants={staggerItem} className="max-w-3xl">
+      <motion.div variants={staggerContainer} className="mx-auto max-w-7xl">
+        <motion.div variants={fadeInUp} className="max-w-3xl">
           <div className="mb-5 h-1 w-12 bg-accent" />
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-zinc-500">
             Differentiation
@@ -62,13 +61,13 @@ export default function Differentiation() {
             return (
               <motion.article
                 key={advantage.title}
-                variants={staggerItem}
-                whileHover={cardHover}
+                variants={{ ...fadeInUp, ...scaleOnHover }}
+                whileHover="hover"
                 className="premium-card p-5 sm:p-6"
               >
                 <div className="grid gap-5 lg:grid-cols-[0.45fr_1fr]">
                   <div className="flex items-start gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-page">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-page">
                       <Icon className="h-6 w-6 text-accent" />
                     </div>
                     <div>
@@ -82,7 +81,7 @@ export default function Differentiation() {
                   </div>
 
                   <div className="grid gap-4 md:grid-cols-2">
-                    <div className="rounded-2xl border border-white/10 bg-page/70 p-5 shadow-[0_16px_42px_rgba(0,0,0,0.2)]">
+                    <div className="rounded-xl border border-white/10 bg-page/70 p-5 shadow-[0_16px_42px_rgba(0,0,0,0.2)] transition-all duration-300 hover:border-accent hover:shadow-2xl">
                       <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-zinc-500">
                         <X className="h-4 w-4 text-zinc-600" />
                         Traditional staffing
@@ -92,7 +91,7 @@ export default function Differentiation() {
                       </p>
                     </div>
 
-                    <div className="rounded-2xl border border-accent/60 bg-surface-2 p-5 shadow-[0_18px_52px_rgba(0,0,0,0.28)]">
+                    <div className="rounded-xl border border-accent/60 bg-[#111] p-5 shadow-[0_18px_52px_rgba(0,0,0,0.28)] transition-all duration-300 hover:border-accent hover:shadow-2xl">
                       <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-zinc-300">
                         <CheckCircle2 className="h-4 w-4 text-accent" />
                         Zyra Talent model
@@ -107,7 +106,7 @@ export default function Differentiation() {
             );
           })}
         </motion.div>
-      </div>
+      </motion.div>
     </motion.section>
   );
 }

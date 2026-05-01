@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import {
   buttonHover,
-  cardHover,
-  sectionReveal,
-  staggerItem
-} from "@/components/motion-presets";
+  fadeInUp,
+  scaleOnHover,
+  staggerContainer
+} from "@/lib/animations";
 
 const commitments = [
   "Role calibration within 24 hours",
@@ -19,21 +19,24 @@ export default function CTA() {
   return (
     <motion.section
       id="consultation"
-      className="section-shell"
-      variants={sectionReveal}
+      className="section-shell bg-[#0E0E0E]"
+      variants={fadeInUp}
       initial="hidden"
-      whileInView="show"
+      whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
     >
       <motion.div
-        variants={staggerItem}
-        whileHover={cardHover}
-        className="premium-panel relative mx-auto max-w-7xl overflow-hidden rounded-[2rem]"
+        variants={{ ...fadeInUp, ...scaleOnHover }}
+        whileHover="hover"
+        className="premium-panel relative mx-auto max-w-7xl overflow-hidden"
       >
         <div className="pointer-events-none absolute -right-28 top-8 h-72 w-72 rounded-full border border-white/10" />
         <div className="pointer-events-none absolute -bottom-20 left-10 h-56 w-56 rounded-full border border-white/5" />
 
-        <div className="relative grid gap-10 p-8 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:p-14">
+        <motion.div
+          variants={staggerContainer}
+          className="relative grid gap-10 p-8 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:p-14"
+        >
           <div>
             <div className="mb-5 h-1 w-12 bg-accent" />
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-zinc-500">
@@ -51,8 +54,10 @@ export default function CTA() {
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
               <motion.a
                 href="mailto:hello@zyratalent.com?subject=Book%20a%20Staffing%20Consultation"
-                whileHover={buttonHover}
-                whileTap={{ scale: 0.98 }}
+                variants={buttonHover}
+                initial="rest"
+                whileHover="hover"
+                whileTap="tap"
                 className="premium-button-primary"
               >
                 Book a Consultation
@@ -60,8 +65,10 @@ export default function CTA() {
               </motion.a>
               <motion.a
                 href="#case-studies"
-                whileHover={buttonHover}
-                whileTap={{ scale: 0.98 }}
+                variants={buttonHover}
+                initial="rest"
+                whileHover="hover"
+                whileTap="tap"
                 className="premium-button-secondary"
               >
                 Review Outcomes
@@ -69,7 +76,7 @@ export default function CTA() {
             </div>
           </div>
 
-          <div className="self-center rounded-3xl border border-white/10 bg-page/80 p-6 shadow-[0_18px_58px_rgba(0,0,0,0.32)]">
+          <div className="self-center rounded-xl border border-white/10 bg-page/80 p-6 shadow-[0_18px_58px_rgba(0,0,0,0.32)]">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-zinc-500">
               Consultation includes
             </p>
@@ -82,7 +89,7 @@ export default function CTA() {
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       </motion.div>
     </motion.section>
   );

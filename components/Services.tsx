@@ -10,11 +10,10 @@ import {
   type LucideIcon
 } from "lucide-react";
 import {
-  cardHover,
-  sectionReveal,
+  fadeInUp,
+  scaleOnHover,
   staggerContainer,
-  staggerItem
-} from "@/components/motion-presets";
+} from "@/lib/animations";
 
 type Service = {
   icon: LucideIcon;
@@ -59,14 +58,14 @@ export default function Services() {
   return (
     <motion.section
       id="services"
-      className="section-shell"
-      variants={sectionReveal}
+      className="section-shell bg-[#0B0B0B]"
+      variants={fadeInUp}
       initial="hidden"
-      whileInView="show"
+      whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
     >
-      <div className="mx-auto max-w-7xl">
-        <motion.div variants={staggerItem} className="max-w-3xl">
+      <motion.div variants={staggerContainer} className="mx-auto max-w-7xl">
+        <motion.div variants={fadeInUp} className="max-w-3xl">
           <div className="mb-5 h-1 w-12 bg-accent" />
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-zinc-500">
             Productized staffing
@@ -90,11 +89,11 @@ export default function Services() {
             return (
               <motion.article
                 key={service.title}
-                variants={staggerItem}
-                whileHover={cardHover}
+                variants={{ ...fadeInUp, ...scaleOnHover }}
+                whileHover="hover"
                 className="premium-card group min-h-72"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-page transition-all duration-300 group-hover:border-accent/80 group-hover:shadow-[0_12px_30px_rgba(15,118,110,0.18)]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-page transition-all duration-300 group-hover:border-accent group-hover:shadow-[0_12px_30px_rgba(15,118,110,0.18)]">
                   <Icon className="h-6 w-6 text-accent" />
                 </div>
                 <h3 className="mt-7 text-xl font-bold tracking-tight text-white">
@@ -107,7 +106,7 @@ export default function Services() {
             );
           })}
         </motion.div>
-      </div>
+      </motion.div>
     </motion.section>
   );
 }

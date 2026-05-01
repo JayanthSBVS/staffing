@@ -37,23 +37,23 @@ a {
 
 @layer components {
   .section-shell {
-    @apply border-t border-white/10 bg-page px-6 py-24 sm:px-8 lg:px-10;
+    @apply border-t border-white/5 bg-page px-6 py-24 sm:px-8 lg:px-10;
   }
 
   .premium-panel {
-    @apply border border-white/10 bg-surface shadow-[0_24px_80px_rgba(0,0,0,0.32)];
+    @apply rounded-xl border border-white/10 bg-[#111] shadow-[0_24px_80px_rgba(0,0,0,0.32)] transition-all duration-300 ease-out;
   }
 
   .premium-card {
-    @apply transform-gpu rounded-3xl border border-white/10 bg-surface p-6 shadow-[0_18px_55px_rgba(0,0,0,0.22)] transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.04] hover:border-accent/80 hover:bg-surface-2 hover:shadow-[0_28px_95px_rgba(0,0,0,0.55)];
+    @apply transform-gpu rounded-xl border border-white/10 bg-[#111] p-6 shadow-[0_18px_55px_rgba(0,0,0,0.22)] transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.04] hover:border-accent hover:shadow-2xl;
   }
 
   .premium-button-primary {
-    @apply inline-flex transform-gpu items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 text-base font-semibold text-white shadow-[0_14px_34px_rgba(15,118,110,0.26)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#149287] hover:shadow-[0_18px_46px_rgba(15,118,110,0.36)] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-page;
+    @apply inline-flex transform-gpu items-center justify-center gap-2 rounded-lg bg-accent px-6 py-3 text-base font-medium text-white shadow-[0_14px_34px_rgba(15,118,110,0.26)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#149287] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-page;
   }
 
   .premium-button-secondary {
-    @apply inline-flex transform-gpu items-center justify-center gap-2 rounded-full border border-white/15 bg-surface px-8 py-4 text-base font-semibold text-white shadow-[0_14px_34px_rgba(0,0,0,0.24)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-accent/80 hover:bg-surface-2 hover:shadow-[0_18px_46px_rgba(0,0,0,0.4)];
+    @apply inline-flex transform-gpu items-center justify-center gap-2 rounded-lg border border-white/15 bg-[#111] px-6 py-3 text-base font-medium text-white shadow-[0_14px_34px_rgba(0,0,0,0.24)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 hover:shadow-lg;
   }
 
   .animated-link {
@@ -67,5 +67,22 @@ a {
 
   .animated-link:hover::after {
     @apply w-full;
+  }
+
+  .premium-card svg,
+  .premium-panel svg,
+  .premium-button-primary svg,
+  .premium-button-secondary svg {
+    @apply transition-transform duration-300 ease-out;
+  }
+
+  .premium-card:hover svg,
+  .premium-panel:hover svg {
+    @apply -translate-y-0.5 rotate-3 scale-110;
+  }
+
+  .premium-button-primary:hover svg,
+  .premium-button-secondary:hover svg {
+    @apply translate-x-0.5 scale-105;
   }
 }

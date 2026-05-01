@@ -3,11 +3,10 @@
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 import {
-  cardHover,
-  sectionReveal,
+  fadeInUp,
+  scaleOnHover,
   staggerContainer,
-  staggerItem
-} from "@/components/motion-presets";
+} from "@/lib/animations";
 
 const testimonials = [
   {
@@ -34,14 +33,14 @@ export default function Testimonials() {
   return (
     <motion.section
       id="testimonials"
-      className="section-shell"
-      variants={sectionReveal}
+      className="section-shell bg-[#0B0B0B]"
+      variants={fadeInUp}
       initial="hidden"
-      whileInView="show"
+      whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
     >
-      <div className="mx-auto max-w-7xl">
-        <motion.div variants={staggerItem} className="max-w-3xl">
+      <motion.div variants={staggerContainer} className="mx-auto max-w-7xl">
+        <motion.div variants={fadeInUp} className="max-w-3xl">
           <div className="mb-5 h-1 w-12 bg-accent" />
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-zinc-500">
             Client voice
@@ -58,11 +57,11 @@ export default function Testimonials() {
           {testimonials.map((testimonial) => (
             <motion.figure
               key={testimonial.name}
-              variants={staggerItem}
-              whileHover={cardHover}
+              variants={{ ...fadeInUp, ...scaleOnHover }}
+              whileHover="hover"
               className="premium-card flex min-h-96 flex-col"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-page">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-page">
                 <Quote className="h-6 w-6 text-accent" />
               </div>
               <blockquote className="mt-6 flex-1 text-lg font-medium leading-8 text-white">
@@ -75,7 +74,7 @@ export default function Testimonials() {
             </motion.figure>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
     </motion.section>
   );
 }

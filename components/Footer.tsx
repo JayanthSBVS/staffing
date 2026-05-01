@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { sectionReveal, staggerItem } from "@/components/motion-presets";
+import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 const links = [
   { label: "Services", href: "#services" },
@@ -21,15 +21,15 @@ const services = [
 export default function Footer() {
   return (
     <motion.footer
-      className="border-t border-white/10 bg-page px-6 py-12 sm:px-8 lg:px-10"
-      variants={sectionReveal}
+      className="border-t border-white/5 bg-[#0B0B0B] px-6 py-12 sm:px-8 lg:px-10"
+      variants={fadeInUp}
       initial="hidden"
-      whileInView="show"
+      whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
     >
-      <div className="mx-auto max-w-7xl">
+      <motion.div variants={staggerContainer} className="mx-auto max-w-7xl">
         <div className="grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
-          <motion.div variants={staggerItem}>
+          <motion.div variants={fadeInUp}>
             <a href="#" className="text-xl font-bold tracking-tight text-white">
               Zyra Talent
             </a>
@@ -42,7 +42,7 @@ export default function Footer() {
             </p>
           </motion.div>
 
-          <motion.div variants={staggerItem}>
+          <motion.div variants={fadeInUp}>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-zinc-500">
               Navigate
             </p>
@@ -55,7 +55,7 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          <motion.div variants={staggerItem}>
+          <motion.div variants={fadeInUp}>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-zinc-500">
               Staffing
             </p>
@@ -70,7 +70,7 @@ export default function Footer() {
         </div>
 
         <motion.div
-          variants={staggerItem}
+          variants={fadeInUp}
           className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-zinc-500 sm:flex-row sm:items-center sm:justify-between"
         >
           <p>(c) 2026 Zyra Talent. All rights reserved.</p>
@@ -78,7 +78,7 @@ export default function Footer() {
             hello@zyratalent.com
           </a>
         </motion.div>
-      </div>
+      </motion.div>
     </motion.footer>
   );
 }

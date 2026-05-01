@@ -2,11 +2,10 @@
 
 import { motion } from "framer-motion";
 import {
-  cardHover,
-  sectionReveal,
+  fadeInUp,
+  scaleOnHover,
   staggerContainer,
-  staggerItem
-} from "@/components/motion-presets";
+} from "@/lib/animations";
 
 const caseStudies = [
   {
@@ -45,15 +44,15 @@ export default function CaseStudies() {
   return (
     <motion.section
       id="case-studies"
-      className="section-shell"
-      variants={sectionReveal}
+      className="section-shell bg-[#0E0E0E]"
+      variants={fadeInUp}
       initial="hidden"
-      whileInView="show"
+      whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
     >
-      <div className="mx-auto max-w-7xl">
+      <motion.div variants={staggerContainer} className="mx-auto max-w-7xl">
         <motion.div
-          variants={staggerItem}
+          variants={fadeInUp}
           className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]"
         >
           <div>
@@ -78,8 +77,8 @@ export default function CaseStudies() {
           {caseStudies.map((study) => (
             <motion.article
               key={study.company}
-              variants={staggerItem}
-              whileHover={cardHover}
+              variants={{ ...fadeInUp, ...scaleOnHover }}
+              whileHover="hover"
               className="premium-card flex min-h-[34rem] flex-col"
             >
               <div className="border-b border-white/10 pb-5">
@@ -92,7 +91,7 @@ export default function CaseStudies() {
               </div>
 
               <div className="flex-1 space-y-4 py-6">
-                <div className="rounded-2xl border border-white/10 bg-page/70 p-4">
+                <div className="rounded-xl border border-white/10 bg-page/70 p-4 transition-all duration-300 hover:border-accent hover:shadow-2xl">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
                     Problem
                   </p>
@@ -100,7 +99,7 @@ export default function CaseStudies() {
                     {study.problem}
                   </p>
                 </div>
-                <div className="rounded-2xl border border-white/10 bg-page/70 p-4">
+                <div className="rounded-xl border border-white/10 bg-page/70 p-4 transition-all duration-300 hover:border-accent hover:shadow-2xl">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
                     Action
                   </p>
@@ -110,7 +109,7 @@ export default function CaseStudies() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-accent/60 bg-surface-2 p-5">
+              <div className="rounded-xl border border-accent/60 bg-[#111] p-5 shadow-[0_16px_42px_rgba(0,0,0,0.24)]">
                 <p className="text-2xl font-bold tracking-tight text-white">
                   {study.result}
                 </p>
@@ -119,7 +118,7 @@ export default function CaseStudies() {
             </motion.article>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
     </motion.section>
   );
 }
