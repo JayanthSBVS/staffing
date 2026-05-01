@@ -1,62 +1,60 @@
-import type { Variants } from "framer-motion";
-
-export const fadeInUp: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 20
-  },
+export const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
-      ease: "easeOut"
-    }
-  }
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
 };
 
-export const staggerContainer: Variants = {
+export const staggerContainer = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.06
-    }
-  }
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
 };
 
-export const scaleOnHover: Variants = {
-  rest: {
-    scale: 1,
-    y: 0,
-    borderColor: "rgba(255, 255, 255, 0.1)",
-    boxShadow: "0 18px 55px rgba(0, 0, 0, 0.22)"
+export const smoothScale = {
+  whileHover: {
+    scale: 1.05,
+    transition: { duration: 0.35, ease: "easeOut" },
   },
-  hover: {
-    scale: 1.04,
-    y: -8,
-    borderColor: "#0F766E",
-    boxShadow: "0 28px 80px rgba(0, 0, 0, 0.52)",
-    transition: {
-      duration: 0.3,
-      ease: "easeOut"
-    }
-  }
 };
 
-export const buttonHover: Variants = {
-  rest: {
-    y: 0
-  },
-  hover: {
-    y: -2,
-    boxShadow: "0 18px 42px rgba(15, 118, 110, 0.34)",
+export const floating = {
+  animate: {
+    y: [0, -18, 0],
     transition: {
-      duration: 0.3,
-      ease: "easeOut"
-    }
+      duration: 6,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
   },
-  tap: {
-    scale: 0.98
-  }
+};
+
+export const slowRotate = {
+  animate: {
+    rotate: [0, 360],
+    transition: {
+      duration: 60,
+      repeat: Infinity,
+      ease: "linear",
+    },
+  },
+};
+
+export const stagger = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
 };

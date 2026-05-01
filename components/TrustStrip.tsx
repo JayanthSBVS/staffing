@@ -2,11 +2,7 @@
 
 import { motion, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useRef } from "react";
-import {
-  fadeInUp,
-  scaleOnHover,
-  staggerContainer
-} from "@/lib/animations";
+import { fadeInUp, staggerContainer } from "@/lib/animations";
 
 type CounterProps = {
   value: number;
@@ -17,15 +13,13 @@ function Counter({ value, suffix = "" }: CounterProps) {
   const ref = useRef<HTMLSpanElement | null>(null);
   const motionValue = useMotionValue(0);
   const springValue = useSpring(motionValue, {
-    damping: 28,
-    stiffness: 90
+    damping: 30,
+    stiffness: 100
   });
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true });
 
   useEffect(() => {
-    if (inView) {
-      motionValue.set(value);
-    }
+    if (inView) motionValue.set(value);
   }, [inView, motionValue, value]);
 
   useEffect(() => {
@@ -39,99 +33,75 @@ function Counter({ value, suffix = "" }: CounterProps) {
   return <span ref={ref}>0{suffix}</span>;
 }
 
-const proofMetrics = [
-  {
-    value: 1500,
-    suffix: "+",
-    label:
-      "enterprise hiring mandates delivered across SaaS, BFSI, GCC, and retail technology"
-  },
-  {
-    value: 25000,
-    suffix: "+",
-    label:
-      "technology professionals placed into engineering, cloud, data, and security teams"
-  },
-  {
-    value: 92,
-    suffix: "%",
-    label: "shortlisted candidates accepted for first-round interviews by client panels"
-  },
-  {
-    value: 7,
-    suffix: " days",
-    label: "typical time to deliver a calibrated, role-ready candidate slate"
-  }
-];
-
-const logoRow = [
-  "Fintech GCC",
-  "B2B SaaS",
-  "Retail Cloud",
-  "Data Platform",
-  "Cybersecurity",
-  "AI Product Lab"
+const metrics = [
+  { value: 1500, suffix: "+", label: "Clients Served" },
+  { value: 25000, suffix: "+", label: "Placements Completed" },
+  { value: 92, suffix: "%", label: "Interview Success Rate" },
+  { value: 7, suffix: " days", label: "Average Hiring Time" }
 ];
 
 export default function TrustStrip() {
   return (
-    <motion.section
-      className="section-shell bg-[#0E0E0E]"
-      variants={fadeInUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-    >
-      <motion.div variants={staggerContainer} className="mx-auto max-w-7xl">
-        <div className="grid gap-10 rounded-xl border border-white/10 bg-[#111]/55 p-6 shadow-[0_24px_90px_rgba(0,0,0,0.26)] sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
-          <motion.div variants={fadeInUp}>
-            <div className="mb-5 h-1 w-12 bg-accent" />
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-zinc-500">
-              Proven delivery
-            </p>
-            <h2 className="mt-4 max-w-xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Hiring confidence for teams where every open role affects the roadmap.
-            </h2>
-          </motion.div>
+    <section className="py-32 px-6 lg:px-24 bg-[#0E0E0E] border-t border-white/5">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        className="max-w-7xl mx-auto"
+      >
+        {/* HEADER */}
+        <motion.div variants={fadeInUp} className="text-center mb-16">
+          <h2 className="text-4xl font-semibold tracking-tight">
+            Trusted by High-Performance Teams
+          </h2>
+          <p className="text-gray-400 mt-4 max-w-xl mx-auto">
+            Proven hiring outcomes across enterprise and fast-scaling companies.
+          </p>
+        </motion.div>
 
-          <div className="grid gap-5 sm:grid-cols-2">
-            {proofMetrics.map((metric) => (
-              <motion.div
-                key={metric.label}
-                variants={{ ...fadeInUp, ...scaleOnHover }}
-                whileHover="hover"
-                className="premium-card"
-              >
-                <div className="text-4xl font-bold tracking-tight text-white">
-                  <Counter value={metric.value} suffix={metric.suffix} />
-                </div>
-                <p className="mt-3 text-sm leading-6 text-zinc-400">
-                  {metric.label}
-                </p>
-              </motion.div>
-            ))}
-          </div>
+        {/* METRICS GRID */}
+        <div className="grid md:grid-cols-4 gap-8">
+          {metrics.map((m, i) => (
+            <motion.div
+              key={i}
+              variants={fadeInUp}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0px 20px 60px rgba(0,0,0,0.4)"
+              }}
+              className="bg-[#111] p-6 rounded-xl border border-white/10 text-center transition"
+            >
+              <div className="text-4xl font-bold text-white">
+                <Counter value={m.value} suffix={m.suffix} />
+              </div>
+              <p className="mt-3 text-gray-400 text-sm">
+                {m.label}
+              </p>
+            </motion.div>
+          ))}
         </div>
 
-        <motion.div variants={fadeInUp} className="mt-12">
-          <p className="mb-6 text-center text-sm font-medium uppercase tracking-[0.22em] text-zinc-500">
-            Hiring environments we support every quarter
+        {/* LOGO STRIP */}
+        <motion.div variants={fadeInUp} className="mt-20 text-center">
+          <p className="text-xs uppercase tracking-widest text-gray-500 mb-6">
+            Industries we support
           </p>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {logoRow.map((logo) => (
-              <motion.div
-                key={logo}
-                variants={{ ...fadeInUp, ...scaleOnHover }}
-                whileHover="hover"
-                className="flex h-16 transform-gpu items-center justify-center rounded-xl border border-white/10 bg-[#111] px-5 text-center text-base font-semibold text-zinc-400 shadow-[0_14px_42px_rgba(0,0,0,0.22)] transition-all duration-300 hover:text-white"
-              >
-                {logo}
-              </motion.div>
-            ))}
+          <div className="flex flex-wrap justify-center gap-6">
+            {["Fintech", "SaaS", "Retail", "AI", "Cloud", "Cybersecurity"].map(
+              (item) => (
+                <motion.div
+                  key={item}
+                  whileHover={{ scale: 1.1 }}
+                  className="px-6 py-3 rounded-lg border border-white/10 bg-[#111] text-gray-400 hover:text-white transition"
+                >
+                  {item}
+                </motion.div>
+              )
+            )}
           </div>
         </motion.div>
       </motion.div>
-    </motion.section>
+    </section>
   );
 }
